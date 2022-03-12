@@ -48,13 +48,20 @@
                 <version>8.0.28</version>
             </dependency>
 
-            <dependency>
+         <!--    <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-            </dependency>
+            </dependency> -->
 
 
         </dependencies>
     </dependencyManagement>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
