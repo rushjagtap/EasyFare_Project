@@ -9,6 +9,9 @@
   <artifactId>bus_user_management</artifactId>
   <name>bus_user_management</name>
   <description>Manage user detail services</description>
+  <properties>
+    <java.version>8</java.version>
+</properties>
   <dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
