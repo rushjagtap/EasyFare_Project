@@ -11,6 +11,10 @@
 
     <artifactId>bus_eruka</artifactId>
 
+         <properties>
+<java.version>8</java.version>
+</properties>
+         
     <dependencies>
         <!-- eureka server -->
         <dependency>
