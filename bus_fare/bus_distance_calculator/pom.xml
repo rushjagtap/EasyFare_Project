@@ -9,6 +9,13 @@
   <artifactId>bus_distance_calculator</artifactId>
   <name>bus_distance_calculator</name>
   <description>Bus Distance Calculator</description>
+	
+	 <properties>
+<java.version>8</java.version>
+                  <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+</properties>
+	
   <dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
