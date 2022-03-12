@@ -12,7 +12,6 @@
         <module>bus_route</module>
         <module>bus_common</module>
         <module>bus_eruka</module>
-        <module>bus_user_managment</module>
         <module>bus_user_management</module>
         <module>bus_fleet_management</module>
         <module>bus_distance_calculator</module>
