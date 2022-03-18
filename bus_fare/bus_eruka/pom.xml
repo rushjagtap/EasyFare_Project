@@ -4,17 +4,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>bus_fare</artifactId>
-		<groupId>org.example</groupId>
+		<groupId>com.tus</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-
-	<artifactId>bus_eruka</artifactId>
+	<artifactId>eureka</artifactId>
+  <name>bus_eureka</name>
+  <description>Manage eureka services</description>
 
 	<properties>
 		<java.version>8</java.version>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
+		 <maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target> 
 	</properties>
 	<dependencies>
 		<!-- eureka server -->
@@ -30,5 +31,12 @@
 		</dependency>
 
 	</dependencies>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
