@@ -15,5 +15,7 @@ public class DataPointsDTO {
 	public String getLatitudeString() {
 		return Double.toString(latitude);
 	}
+
+
 	
 }
