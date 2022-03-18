@@ -1,4 +1,4 @@
-package com.tus.EasyFare.FleetManagement.DTO;
+package com.tus.FleetManagement.DTO;
 
 public class PassengerDTO {
 	private Integer userid;

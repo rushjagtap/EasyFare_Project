@@ -1,9 +1,9 @@
-package com.tus.EasyFare.FleetManagement.Bus.dao;
+package com.tus.FleetManagement.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tus.EasyFare.FleetManagement.Bus.Entity.PassengerInfo;
+import com.tus.FleetManagement.Entity.PassengerInfo;
 
 @Repository
 public interface PassengerRepository extends JpaRepository<PassengerInfo, Integer>{

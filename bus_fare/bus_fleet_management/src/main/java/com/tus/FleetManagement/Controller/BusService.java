@@ -1,4 +1,4 @@
-package com.tus.EasyFare.FleetManagement.Bus.Controller;
+package com.tus.FleetManagement.Controller;
 
 
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tus.EasyFare.FleetManagement.Bus.Entity.Bus;
-import com.tus.EasyFare.FleetManagement.Bus.dao.BusRepository;
+import com.tus.FleetManagement.Entity.Bus;
+import com.tus.FleetManagement.dao.BusRepository;
 
 
 @Service

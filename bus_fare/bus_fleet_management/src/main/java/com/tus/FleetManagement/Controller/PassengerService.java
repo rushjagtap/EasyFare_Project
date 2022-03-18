@@ -1,4 +1,4 @@
-package com.tus.EasyFare.FleetManagement.Bus.Controller;
+package com.tus.FleetManagement.Controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tus.EasyFare.FleetManagement.Bus.Entity.Bus;
-import com.tus.EasyFare.FleetManagement.Bus.Entity.PassengerInfo;
-import com.tus.EasyFare.FleetManagement.Bus.dao.BusRepository;
-import com.tus.EasyFare.FleetManagement.Bus.dao.PassengerRepository;
-import com.tus.EasyFare.FleetManagement.DTO.PassengerDTO;
+import com.tus.FleetManagement.Entity.Bus;
+import com.tus.FleetManagement.Entity.PassengerInfo;
+import com.tus.FleetManagement.dao.BusRepository;
+import com.tus.FleetManagement.dao.PassengerRepository;
+import com.tus.FleetManagement.DTO.PassengerDTO;
 
 @Service
 public class PassengerService {
