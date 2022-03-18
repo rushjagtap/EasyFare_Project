@@ -1,7 +1,7 @@
 package com.tus.farecalculation.controller;
 
-import com.mall.entry.RouteInformation;
-import com.mall.mapper.RouteInformationRepository;
+import com.tus.farecalculation.entry.RouteInformation;
+import com.tus.farecalculation.mapper.RouteInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
