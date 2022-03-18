@@ -1,5 +1,6 @@
 package com.tus.farecalculation.mapper;
 
+import com.tus.farecalculation.entry.BusRoute;
 import com.tus.farecalculation.entry.RouteHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
