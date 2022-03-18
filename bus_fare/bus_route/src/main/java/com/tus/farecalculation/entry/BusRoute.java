@@ -1,4 +1,4 @@
-package com.mall.entry;
+package com.tus.farecalculation.entry;
 
 
 import lombok.Data;

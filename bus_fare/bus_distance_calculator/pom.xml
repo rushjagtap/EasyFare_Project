@@ -50,12 +50,6 @@
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-	</dependencies>
-=======
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
@@ -66,7 +60,6 @@
           <scope>compile</scope>
       </dependency>
   </dependencies>
->>>>>>> 891071f3d222462d47422e022da57e3703f3e8fe
 	<build>
 		<plugins>
 			<plugin>

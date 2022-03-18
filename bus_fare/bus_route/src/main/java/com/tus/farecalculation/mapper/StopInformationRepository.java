@@ -1,6 +1,6 @@
-package com.mall.mapper;
+package com.tus.farecalculation.mapper;
 
-import com.mall.entry.StopInformation;
+import com.tus.farecalculation.entry.StopInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

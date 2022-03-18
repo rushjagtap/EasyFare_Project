@@ -1,21 +1,17 @@
-package com.mall.controller;
+package com.tus.farecalculation.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.mall.entry.RouteHistory;
-import com.mall.entry.RouteInformation;
-import com.mall.entry.StopInformation;
-import com.mall.mapper.RouteHistoryRepository;
-import com.mall.mapper.RouteInformationRepository;
-import com.mall.mapper.StopInformationRepository;
-import com.mall.vo.FleetInformation;
+import com.tus.farecalculation.entry.RouteHistory;
+import com.tus.farecalculation.entry.RouteInformation;
+import com.tus.farecalculation.entry.StopInformation;
+import com.tus.farecalculation.mapper.RouteHistoryRepository;
+import com.tus.farecalculation.mapper.RouteInformationRepository;
+import com.tus.farecalculation.mapper.StopInformationRepository;
+import com.tus.farecalculation.vo.FleetInformation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Date;

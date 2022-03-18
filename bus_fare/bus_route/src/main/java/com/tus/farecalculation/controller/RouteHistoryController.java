@@ -1,9 +1,7 @@
-package com.mall.controller;
+package com.tus.farecalculation.controller;
 
-import com.mall.entry.BusRoute;
-import com.mall.entry.RouteHistory;
-import com.mall.mapper.RouteHistoryRepository;
-import com.mall.mapper.RouteRepository;
+import com.tus.farecalculation.entry.RouteHistory;
+import com.tus.farecalculation.mapper.RouteHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

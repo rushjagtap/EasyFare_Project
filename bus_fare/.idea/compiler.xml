@@ -17,4 +17,15 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bus_common" options="-parameters" />
+      <module name="bus_distance_calculator" options="-parameters" />
+      <module name="bus_email_client" options="-parameters" />
+      <module name="bus_eruka" options="-parameters" />
+      <module name="bus_fleet_management" options="-parameters" />
+      <module name="bus_route" options="-parameters" />
+      <module name="bus_user_management" options="-parameters" />
+    </option>
+  </component>
 </project>
