@@ -11,6 +11,7 @@
         <module name="bus_fleet_management" />
         <module name="bus_route" />
         <module name="bus_distance_calculator" />
+        <module name="bus_email_client" />
         <module name="bus_eruka" />
         <module name="bus_user_management" />
       </profile>

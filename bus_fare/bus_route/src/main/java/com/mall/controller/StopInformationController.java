@@ -89,8 +89,10 @@ public class StopInformationController {
         routeHistory.setCreateTime(new Date());
         routeHistoryRepository.save(routeHistory);
         HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("source",fleetInformation.getBoardingName());
+        resultMap.put("destination",fleetInformation.getDropringName());
         resultMap.put("userId",fleetInformation.getUserId());
-        resultMap.put("price",price);
+        resultMap.put("fare",price);
         return ResponseEntity.ok(resultMap);
     }
 
