@@ -1,7 +1,7 @@
-package com.mall.mapper;
+package com.tus.farecalculation.mapper;
 
-import com.mall.entry.BusRoute;
-import com.mall.entry.RouteHistory;
+import com.tus.farecalculation.entry.BusRoute;
+import com.tus.farecalculation.entry.RouteHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RouteHistoryRepository extends JpaRepository<RouteHistory,Integer> {

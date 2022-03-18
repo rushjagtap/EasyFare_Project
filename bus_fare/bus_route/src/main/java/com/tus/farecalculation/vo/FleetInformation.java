@@ -1,4 +1,4 @@
-package com.mall.vo;
+package com.tus.farecalculation.vo;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.mall;
+package com.tus.farecalculation;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

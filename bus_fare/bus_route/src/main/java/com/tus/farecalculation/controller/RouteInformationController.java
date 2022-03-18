@@ -1,4 +1,4 @@
-package com.mall.controller;
+package com.tus.farecalculation.controller;
 
 import com.mall.entry.RouteInformation;
 import com.mall.mapper.RouteInformationRepository;
