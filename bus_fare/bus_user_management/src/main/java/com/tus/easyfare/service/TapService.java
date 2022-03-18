@@ -17,20 +17,12 @@ public class TapService {
 	
 	@Autowired
 	RestTemplate restTemplate;
-
-	public boolean validateUserAndBalance(Integer userId) {
-		if(userRepo.existsById(userId) && (userRepo.findById(userId).get().getSmartCard().getBalance()>0) && (userRepo.findById(userId).get().getSmartCard().getCardStatus().equalsIgnoreCase("available"))) {
-			return true;
-		}else {
-			return false;
-		}
-	}
 	
 	public String tapUser(TapDTO tappedUser) {
 		UserEntity userDetails=userRepo.findById(tappedUser.getUserId()).get();
 		long availableBalance=userDetails.getSmartCard().getBalance();
 		PassengerDTO passObj= new PassengerDTO(tappedUser.getUserId(), tappedUser.getSourcePoint(), tappedUser.getRouteNumber(), tappedUser.getBusNumber(), availableBalance);
-		String restObj=restTemplate.postForObject("http://localhost:8082/api/v1/passenger", passObj, String.class);
+		String restObj=restTemplate.postForObject("http://email_client/api/v1/passenger", passObj, String.class);
 		System.out.println(restObj+" Call successfull");
 		return restObj;
 	}

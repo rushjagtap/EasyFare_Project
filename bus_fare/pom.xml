@@ -15,6 +15,7 @@
 		<module>bus_user_management</module>
 		<module>bus_fleet_management</module>
 		<module>bus_distance_calculator</module>
+		<module>bus_email_client</module>
 	</modules>
 	<properties>
 		<java.version>8</java.version>
