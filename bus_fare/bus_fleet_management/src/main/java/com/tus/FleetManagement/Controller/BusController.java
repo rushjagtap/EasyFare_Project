@@ -1,4 +1,4 @@
-package com.tus.EasyFare.FleetManagement.Bus.Controller;
+package com.tus.FleetManagement.Controller;
 
 import java.net.URI;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tus.EasyFare.FleetManagement.Bus.Entity.Bus;
+import com.tus.FleetManagement.Entity.Bus;
 
 @RestController
 @RequestMapping(path = "/api/v1")

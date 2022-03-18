@@ -1,4 +1,4 @@
-package com.tus.EasyFare.FleetManagement.Bus.Entity;
+package com.tus.FleetManagement.Entity;
 
 import java.time.LocalDateTime;
 
