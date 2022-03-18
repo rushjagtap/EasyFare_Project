@@ -39,4 +39,8 @@ public class RouteHistory {
     @Column(name = "create_time")
     private Date createTime;
 
+    private Integer busId;
+
+    private Integer driverId;
+
 }
