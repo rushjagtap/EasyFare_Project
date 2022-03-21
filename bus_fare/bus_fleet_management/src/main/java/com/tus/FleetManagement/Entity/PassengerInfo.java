@@ -18,24 +18,33 @@ public class PassengerInfo {
 	private LocalDateTime startTime;
 	@Column(name = "start_point")
 	private String start_point;
+	@Column(name = "end_point")
+	private String end_point;
+	public String getEnd_point() {
+		return end_point;
+	}
+	public void setEnd_point(String end_point) {
+		this.end_point = end_point;
+	}
 	@Column(name="route_number")
 	private String routeNumber;
 	@Column(name="bus_number")
-	private long busNumber;
+	private String busNumber;
 	@Column(name="driver_id")
-	private long driverId;
+	private String driverId;
 	@Column(name="avail_balance")
 	private Integer availableBalance;
 	
 	public PassengerInfo() {
 		// TODO Auto-generated constructor stub
 	}
-	public PassengerInfo(Integer userid, LocalDateTime startTime, String start_point, String routeNumber,
-			long busNumber, long driverId, Integer availableBalance) {
+	public PassengerInfo(Integer userid, LocalDateTime startTime, String start_point, String end_point, String routeNumber,
+			String busNumber, String driverId, Integer availableBalance) {
 		super();
 		this.userid = userid;
 		this.startTime = startTime;
 		this.start_point = start_point;
+		this.end_point = end_point;
 		this.routeNumber = routeNumber;
 		this.busNumber = busNumber;
 		this.driverId = driverId;
@@ -65,16 +74,16 @@ public class PassengerInfo {
 	public void setRouteNumber(String routeNumber) {
 		this.routeNumber = routeNumber;
 	}
-	public long getBusNumber() {
+	public String getBusNumber() {
 		return busNumber;
 	}
-	public void setBusNumber(long busNumber) {
+	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
-	public long getDriverId() {
+	public String getDriverId() {
 		return driverId;
 	}
-	public void setDriverId(long driverId) {
+	public void setDriverId(String driverId) {
 		this.driverId = driverId;
 	}
 	public Integer getAvailableBalance() {

@@ -22,13 +22,13 @@ public class Bus implements Serializable {
 	private long Id;
 	
 	@Column
-	private long busNumber;
+	private String busNumber;
 	
 	@Column
 	private String busStatus;
 	
 	@Column
-	private long driverId;
+	private String driverId;
 	
 	
 	@Column
@@ -50,7 +50,7 @@ public class Bus implements Serializable {
 	
 	
 	
-	public Bus(long busId, long busNumber, String busStatus, long driverId, String city, String startStation,
+	public Bus(long busId, String busNumber, String busStatus, String driverId, String city, String startStation,
 			String endPoint, String routeNumber) {
 		super();
 		this.Id = busId;
@@ -82,14 +82,14 @@ public class Bus implements Serializable {
 	/**
 	 * @return the busNumber
 	 */
-	public long getBusNumber() {
+	public String getBusNumber() {
 		return busNumber;
 	}
 
 	/**
 	 * @param busNumber the busNumber to set
 	 */
-	public void setBusNumber(long busNumber) {
+	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
 
@@ -110,14 +110,14 @@ public class Bus implements Serializable {
 	/**
 	 * @return the driverId
 	 */
-	public long getDriverId() {
+	public String getDriverId() {
 		return driverId;
 	}
 
 	/**
 	 * @param driverId the driverId to set
 	 */
-	public void setDriverId(long driverId) {
+	public void setDriverId(String driverId) {
 		this.driverId = driverId;
 	}
 
@@ -132,7 +132,7 @@ public class Bus implements Serializable {
 	 * @param city the city to set
 	 */
 	public void setCity(String city) {
-		city = city;
+		this.city = city;
 	}
 
 	/**
