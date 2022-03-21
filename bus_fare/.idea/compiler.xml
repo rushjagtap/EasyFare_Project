@@ -16,6 +16,9 @@
         <module name="bus_user_management" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bus_distance_calculator" target="8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

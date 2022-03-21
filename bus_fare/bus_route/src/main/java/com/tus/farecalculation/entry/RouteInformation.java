@@ -16,10 +16,10 @@ public class RouteInformation {
     private Integer id ;
 
     @Column(name = "route_number")
-    private Integer routeNumber;
+    private String routeNumber;
 
     @Column(name = "bus_number")
-    private Integer busNumber;
+    private String busNumber;
 
 
 
