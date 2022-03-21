@@ -3,6 +3,7 @@ package com.tus.farecalculation.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.tus.farecalculation.entry.FareDTO;
 import com.tus.farecalculation.entry.RouteHistory;
 import com.tus.farecalculation.entry.RouteInformation;
 import com.tus.farecalculation.entry.StopInformation;
@@ -32,6 +33,9 @@ public class StopInformationController {
     @Autowired
     private RouteHistoryRepository  routeHistoryRepository;
 
+    @Autowired
+    private Deduct deductService;
+
 
 
 
@@ -52,7 +56,6 @@ public class StopInformationController {
 
     @PostMapping(value="/ReceiveInAndCalculatePriceAndSaveHistory", produces = {"application/json;charset=UTF-8"})
     public ResponseEntity ReceiveInAndCalculatePriceAndSaveHistory(@RequestBody FleetInformation fleetInformation) throws Exception {
-
        List<RouteInformation> routeInformationList=routeInformationRepository.findAll(fleetInformation.getRouteNum(),fleetInformation.getBusNum());
         if(routeInformationList.isEmpty()){
             throw  new Exception("no store route Information");
@@ -90,7 +93,12 @@ public class StopInformationController {
         resultMap.put("destination",fleetInformation.getDropringName());
         resultMap.put("userId",fleetInformation.getUserId());
         resultMap.put("fare",price);
-        return ResponseEntity.ok(resultMap);
+        FareDTO fareDTO = new FareDTO();
+        fareDTO.setDestination(fleetInformation.getDropringName());
+        fareDTO.setFare(price.longValue());
+        fareDTO.setSource(fleetInformation.getBoardingName());
+        String messgae = deductService.deductFareFromCard(fleetInformation.getUserId(), fareDTO).getBody().getMessgae();
+        return ResponseEntity.ok(messgae);
     }
 
     public static void main(String[] args) {
