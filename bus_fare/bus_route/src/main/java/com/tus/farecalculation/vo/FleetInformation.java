@@ -7,8 +7,8 @@ import java.util.Date;
 @Data
 public class FleetInformation {
     private Integer userId;
-    private Integer routeNum;
-    private Integer busNum;
+    private String routeNum;
+    private String busNum;
 
     private Integer driverId;
 
@@ -19,6 +19,10 @@ public class FleetInformation {
     private Date startTime;
 
     private Date endTime;
+
+    private Integer  numOfPass;
+
+
 
     
 

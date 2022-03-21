@@ -26,7 +26,7 @@ public class RouteHistory {
     private Date tripEndTime;
 
     @Column(name = "route_number")
-    private Integer routeNumber;
+    private String routeNumber;
 
     @Column(name = "boarding_point")
     private String boardingPoint;
@@ -38,8 +38,7 @@ public class RouteHistory {
 
     @Column(name = "create_time")
     private Date createTime;
-
-    private Integer busId;
+    private String busNum;
 
     private Integer driverId;
 
