@@ -21,7 +21,7 @@ public class StopInformation  {
     private Integer routeInformationId;
 
     @Column(name = "stop_number")
-    private Integer stopNumber;
+    private String stopNumber;
 
     @Column(name = "stop_name")
     private String stopName;

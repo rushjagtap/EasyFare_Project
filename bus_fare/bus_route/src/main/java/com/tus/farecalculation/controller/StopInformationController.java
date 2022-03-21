@@ -75,7 +75,7 @@ public class StopInformationController {
         }
         RouteHistory routeHistory = new RouteHistory();
         routeHistory.setUserId(fleetInformation.getUserId());
-        routeHistory.setBusId(fleetInformation.getBusNum());
+        routeHistory.setBusNum(fleetInformation.getBusNum());
         routeHistory.setDriverId(fleetInformation.getDriverId());
         routeHistory.setTripStartTime(fleetInformation.getStartTime());
         routeHistory.setTripEndTime(fleetInformation.getEndTime());
@@ -96,10 +96,10 @@ public class StopInformationController {
     public static void main(String[] args) {
         FleetInformation fleetInformation = new FleetInformation();
         fleetInformation.setBoardingName("athlone");
-        fleetInformation.setBusNum(222);
+        fleetInformation.setBusNum("222");
         fleetInformation.setDriverId(22);
         fleetInformation.setDropringName("dublin");
-        fleetInformation.setRouteNum(1);
+        fleetInformation.setRouteNum("111");
         fleetInformation.setEndTime(new Date());
         fleetInformation.setStartTime(new Date());
         fleetInformation.setUserId(1);

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RouteInformationRepository extends JpaRepository<RouteInformation,Integer> {
     @Query("select c from route_information c where c.routeNumber=?1 and c.busNumber=?2")
-    List<RouteInformation> findAll(Integer routeNum, Integer busNum);
+    List<RouteInformation> findAll(String routeNum, String busNum);
 }
 
