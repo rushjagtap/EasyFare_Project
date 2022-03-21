@@ -20,6 +20,10 @@ public class FleetInformation {
 
     private Date endTime;
 
+    private Integer  numOfPass;
+
+
+
     
 
 }

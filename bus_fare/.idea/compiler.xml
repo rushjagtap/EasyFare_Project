@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="bus_common" />
         <module name="bus_fleet_management" />
+        <module name="distancecalculator" />
         <module name="bus_route" />
         <module name="bus_distance_calculator" />
         <module name="bus_email_client" />
@@ -29,6 +30,7 @@
       <module name="bus_fleet_management" options="-parameters" />
       <module name="bus_route" options="-parameters" />
       <module name="bus_user_management" options="-parameters" />
+      <module name="distancecalculator" options="-parameters" />
     </option>
   </component>
 </project>
