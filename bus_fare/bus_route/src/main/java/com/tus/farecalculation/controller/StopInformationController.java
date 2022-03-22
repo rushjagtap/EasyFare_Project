@@ -112,7 +112,7 @@ public class StopInformationController {
             distance= locationService.getDistance(stopPointsDTO).getBody().getMessgae();
             System.out.println(distance);
         }catch(FeignException e){
-             distance = e.getMessage().substring(137, e.getMessage().length() - 3);
+             //distance = e.getMessage().substring(137, e.getMessage().length() - 3);
         }
         System.out.println("distance+++++++++++++++++"+distance);
         BigDecimal price = stopInformation.getPrice();
