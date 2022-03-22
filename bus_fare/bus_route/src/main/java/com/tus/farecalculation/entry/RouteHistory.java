@@ -34,10 +34,13 @@ public class RouteHistory {
     @Column(name = "drop_off_point")
     private String dropOffPoint;
     @Column(name = "cost")
-    private BigDecimal cost;
+    private Double cost;
 
     @Column(name = "create_time")
     private Date createTime;
+
+
+
     private String busNum;
 
     private Integer driverId;

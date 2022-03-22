@@ -12,7 +12,7 @@ public interface StopInformationRepository extends JpaRepository<StopInformation
     List<StopInformation> findAll(Integer routeInformationId, String dropringName);
 
     @Query("select sum(c.price) from stop_information c where c.id<?1  and  c.routeInformationId=?2")
-    BigDecimal findAll(Integer stopInformationId,Integer routeInformationId);
+    Double findAll(Integer stopInformationId,Integer routeInformationId);
     @Query("select c from stop_information c where c.routeInformationId=?1 ")
     List<StopInformation> findAll(Integer routeInformationId);
 }

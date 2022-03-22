@@ -38,7 +38,7 @@ public class DistanceCalcController {
 	String locationUrl;
 	
 	@RequestMapping(value = "/locations",method = RequestMethod.POST)
-	public ResponseEntity<ResponseDTO> getDistance(@RequestBody StopPointsDTO locations) {
+	public Double getDistance(@RequestBody StopPointsDTO locations) {
 		//System.out.println("locations"+locations.getPointsList());
 		String reqParam=locationService.generateReqParams(locations.getPointsList());
 		System.out.println("reqParam "+reqParam);
@@ -52,6 +52,6 @@ public class DistanceCalcController {
 	            .block();
 		Double ditanceInKms=(root.getRoutes().get(0).getSummary().lengthInMeters)/1000;
 		System.out.println("Distance travelled is : "+ditanceInKms+" KM");
-		return new ResponseEntity<ResponseDTO>(new ResponseDTO(ditanceInKms), HttpStatus.FOUND);
+		return ditanceInKms;
 	}
 }
