@@ -13,6 +13,7 @@ import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -69,15 +70,14 @@ public class StopInformationController {
         if(stopInformationList.isEmpty()){
             throw  new Exception("no store stop Infomation");
         }
-
         StopInformation stopInformation = stopInformationList.get(0);
         List<StopInformation> startformationList= stopInformationRepository.findAll(routeInformationId);
         if(stopInformationList.isEmpty()){
-            throw  new Exception("no start location");
+            throw  new Exception("no start location ");
         }
 
         //calculate peaktime
-      /* String RouteId = fleetInformation.getRouteNum();
+       String routeId = fleetInformation.getRouteNum();
         Date startTime = fleetInformation.getStartTime();
         int year = startTime.getYear();
         int month = startTime.getMonth();
@@ -91,7 +91,13 @@ public class StopInformationController {
         }else{
             dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
         }
-        System.out.println(dayForWeek);*/
+        RestTemplate restTemplate= new RestTemplate();
+        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,numOfPass);
+        String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
+
+
+
+
 
         //calculate the distance
         StopInformation startInfomation = startformationList.get(0);
@@ -112,7 +118,7 @@ public class StopInformationController {
             distance= locationService.getDistance(stopPointsDTO).getBody().getMessgae();
             System.out.println(distance);
         }catch(FeignException e){
-             distance = e.getMessage().substring(137, e.getMessage().length() - 3);
+            // distance = e.getMessage().substring(137, e.getMessage().length() - 3);
         }
         System.out.println("distance+++++++++++++++++"+distance);
         BigDecimal price = stopInformation.getPrice();
@@ -121,6 +127,9 @@ public class StopInformationController {
         BigDecimal beforePrice=stopInformationRepository.findAll(stopInformationId,stopInformation.getId());
         if(beforePrice!=null){
             price=price.add(beforePrice);
+        }
+        if(!restObj.isEmpty()&&restObj.equals("1")){
+            price=price.multiply(new BigDecimal(1.1));
         }
         RouteHistory routeHistory = new RouteHistory();
         routeHistory.setUserId(fleetInformation.getUserId());

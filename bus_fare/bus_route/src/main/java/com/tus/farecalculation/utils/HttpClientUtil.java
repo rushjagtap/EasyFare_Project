@@ -176,28 +176,22 @@ public class HttpClientUtil {
                 .put("hour", 12)
                 .put("dayofweek", 4)
                 .put("noofpass", 1);
-       /* PeakTime peakTime = new PeakTime();
-        peakTime.setNoofpass(1);
-        peakTime.setDateofweek(4);
-        peakTime.setHour(12);
-        peakTime.setMonth(4);
-        peakTime.setYear(2020);
-        peakTime.setRouteId(101);
-*/
+
        /* HttpResponse<JsonNode> response = Unirest.post("http://54.227.57.147:5000/predictpeaktime")
                 .header("accept", "application/json").header("content-type", "application/json")
                 .body(jsonObject.toString())
                 .asJson();*/
-        HttpResponse<JsonNode> response = Unirest.post("http://54.227.57.147:5000/predictpeaktime")
+     /*   HttpResponse<JsonNode> response = Unirest.post("http://54.227.57.147:5000/predictpeaktime")
                 .header("content-type", "application/json")
                 .body(jsonObject.toString())
-                .asJson();
+                .asJson();*/
 
-        // restTemplate= new RestTemplate();
 
-        //String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
 
-        System.out.println("The output is"+response.getBody());
-        System.out.println("The output is"+response.getStatusText());
+        RestTemplate restTemplate= new RestTemplate();
+        PeakTime peakTime = new PeakTime(101,4,2020,12,4,11);
+        String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
+
+        System.out.println("The output is"+restObj);
     }
 }
