@@ -4,11 +4,13 @@ public class PassengerDTO {
 	private Integer userid;
 	private String startpoint;
 	private String routeNumber;
-	private long busNumber;
+	private String busNumber;
 	private Integer availableBalance;
 	public Integer getUserid() {
 		return userid;
 	}
+	
+	
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
@@ -24,10 +26,10 @@ public class PassengerDTO {
 	public void setRouteNumber(String routeNumber) {
 		this.routeNumber = routeNumber;
 	}
-	public long getBusNumber() {
+	public String getBusNumber() {
 		return busNumber;
 	}
-	public void setBusNumber(long busNumber) {
+	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
 	public Integer getAvailableBalance() {

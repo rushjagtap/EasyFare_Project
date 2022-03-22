@@ -1,24 +1,22 @@
 package com.tus.farecalculation.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.tus.farecalculation.entry.FareDTO;
-import com.tus.farecalculation.entry.RouteHistory;
-import com.tus.farecalculation.entry.RouteInformation;
-import com.tus.farecalculation.entry.StopInformation;
+import com.tus.farecalculation.entry.*;
 import com.tus.farecalculation.mapper.RouteHistoryRepository;
 import com.tus.farecalculation.mapper.RouteInformationRepository;
 import com.tus.farecalculation.mapper.StopInformationRepository;
 import com.tus.farecalculation.vo.FleetInformation;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/stopInformation")
@@ -35,6 +33,10 @@ public class StopInformationController {
 
     @Autowired
     private Deduct deductService;
+
+
+    @Autowired
+    private Locations locationService;
 
 
 
@@ -69,6 +71,50 @@ public class StopInformationController {
         }
 
         StopInformation stopInformation = stopInformationList.get(0);
+        List<StopInformation> startformationList= stopInformationRepository.findAll(routeInformationId);
+        if(stopInformationList.isEmpty()){
+            throw  new Exception("no start location");
+        }
+
+        //calculate peaktime
+      /* String RouteId = fleetInformation.getRouteNum();
+        Date startTime = fleetInformation.getStartTime();
+        int year = startTime.getYear();
+        int month = startTime.getMonth();
+        int hours = startTime.getHours();
+        Integer numOfPass = fleetInformation.getNumOfPass();
+        Calendar c = Calendar.getInstance();
+        c.setTime(startTime);
+        int dayForWeek = 0;
+        if(c.get(Calendar.DAY_OF_WEEK) == 1){
+            dayForWeek = 7;
+        }else{
+            dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
+        }
+        System.out.println(dayForWeek);*/
+
+        //calculate the distance
+        StopInformation startInfomation = startformationList.get(0);
+        StopPointsDTO stopPointsDTO = new StopPointsDTO();
+        ArrayList<DataPointsDTO> dataPointsDTOS = new ArrayList<>();
+        DataPointsDTO dataPointsDTO = new DataPointsDTO();
+        dataPointsDTO.setLongitude(stopInformation.getLongitude());
+        dataPointsDTO.setLatitude(stopInformation.getLatitude());
+        DataPointsDTO dataPointsDTO2 = new DataPointsDTO();
+        dataPointsDTO2.setLongitude(startInfomation.getLongitude());
+        dataPointsDTO2.setLatitude(startInfomation.getLatitude());
+        dataPointsDTOS.add(dataPointsDTO);
+        dataPointsDTOS.add(dataPointsDTO2);
+        stopPointsDTO.setPointsList(dataPointsDTOS);
+
+        String distance = "";
+        try{
+            distance= locationService.getDistance(stopPointsDTO).getBody().getMessgae();
+            System.out.println(distance);
+        }catch(FeignException e){
+             distance = e.getMessage().substring(137, e.getMessage().length() - 3);
+        }
+        System.out.println("distance+++++++++++++++++"+distance);
         BigDecimal price = stopInformation.getPrice();
         //priceCalculate
         Integer stopInformationId = stopInformation.getId();
