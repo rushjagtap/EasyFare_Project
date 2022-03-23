@@ -103,6 +103,9 @@ public class StopInformationController {
             BigDecimal   b   =   new   BigDecimal(price);
             price  =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
         }
+        if(fleetInformation.getBoardingName().equals(fleetInformation.getDropringName())){
+            price=0.0;
+        }
         // save history
         saveHistory(fleetInformation,price);
         FareDTO fareDTO = new FareDTO();
