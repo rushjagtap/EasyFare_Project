@@ -56,13 +56,14 @@ public class PassengerService {
 			
 			
 			
-				FleetInformationDTO passObj= new FleetInformationDTO(userid, passenger.getRouteNumber(), passenger.getBusNumber(),currentBus.get().getDriverId() ,currentPassenger.get().getStart_point(), passenger.getStartpoint(), new Date() ,new Date());
+				FleetInformationDTO passObj= new FleetInformationDTO(userid, passenger.getRouteNumber(), passenger.getBusNumber(),currentBus.get().getDriverId() ,currentPassenger.get().getStart_point(), passenger.getStartpoint(), new Date() ,new Date(),1);
 				System.out.println("calling fare calculation");
 				System.out.println("calling fare calculation" + locationUrl + " data:  "+passObj);
 				String restObj=restTemplate.postForObject(locationUrl, passObj, String.class);
 				System.out.println(restObj+" Call successfull");
-			
-				return "User dropped the bus at "+passenger.getStartpoint();
+				System.out.println(restObj.substring(restObj.indexOf("of"),restObj.indexOf("done")));
+				return "User dropped the bus at "+passenger.getStartpoint() + "\n " +restObj ;
+				
 			}
 			else 
 			{
