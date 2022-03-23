@@ -32,7 +32,7 @@ public class TapService {
 	
 	public String tapUser(TapDTO tappedUser) {
 		UserEntity userDetails=userRepo.findById(tappedUser.getUserId()).get();
-		long availableBalance=userDetails.getSmartCard().getBalance();
+		double availableBalance=userDetails.getSmartCard().getBalance();
 		PassengerDTO passObj= new PassengerDTO(tappedUser.getUserId(), tappedUser.getSourcePoint(), tappedUser.getRouteNumber(), tappedUser.getBusNumber(), availableBalance);
 		HttpHeaders reqHeader= new HttpHeaders();
 		reqHeader.setContentType(MediaType.APPLICATION_JSON);

@@ -43,7 +43,7 @@ public class SmartCardEntity {
 	@Column(name="date_of_exp")
 	private Date dateOfExp;
 	@Column(name="balance")
-	private long balance;
+	private double balance;
 	@Column(name = "card_status")
 	private String cardStatus;
 	
@@ -51,7 +51,7 @@ public class SmartCardEntity {
 	
 	}
 	public SmartCardEntity(String cardNum, Date dateOfReg,
-			Date dateOfExp, long balance, String cardStatus) {
+			Date dateOfExp, double balance, String cardStatus) {
 		super();
 		this.cardNum = cardNum;
 		this.dateOfReg = dateOfReg;
@@ -84,10 +84,10 @@ public class SmartCardEntity {
 	public void setDateOfExp(Date dateOfExp) {
 		this.dateOfExp = dateOfExp;
 	}
-	public long getBalance() {
+	public double getBalance() {
 		return balance;
 	}
-	public void setBalance(long balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	public String getCardStatus() {

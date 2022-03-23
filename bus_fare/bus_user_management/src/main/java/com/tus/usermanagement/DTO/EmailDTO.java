@@ -14,6 +14,6 @@ public class EmailDTO {
 	private String subject;
 	private String source;
 	private String destination;
-	private long fare;
-	private long availableBalance;
+	private double fare;
+	private double availableBalance;
 }

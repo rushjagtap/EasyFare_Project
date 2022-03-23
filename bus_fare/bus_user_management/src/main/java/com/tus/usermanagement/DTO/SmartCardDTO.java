@@ -18,7 +18,7 @@ public class SmartCardDTO {
 	private Date dateOfReg;
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dateOfExp;
-	private long balance;
+	private double balance;
 	private String cardStatus;
 		
 }
