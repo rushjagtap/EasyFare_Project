@@ -23,6 +23,7 @@ public class FleetInformationDTO {
 	    private Date startTime;
 
 	    private Date endTime;
+	    private Integer  numOfPass;
 
 	    
 

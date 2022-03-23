@@ -28,6 +28,6 @@ public class UserDTO {
 	private String cardNumber;
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dateOfReg;
-	private int balance;
+	private double balance;
 	private String cardStatus;	
 }

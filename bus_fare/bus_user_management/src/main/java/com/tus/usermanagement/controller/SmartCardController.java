@@ -80,8 +80,8 @@ public class SmartCardController {
 	@RequestMapping(value = "user/{userid}/topup", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseDTO> updateCardDetails(@PathVariable Integer userid,@RequestParam Integer amount) {
 		UserEntity userEntity=userRepo.findById(userid).get();
-		long currentBalance=userEntity.getSmartCard().getBalance();
-		long newBalance=currentBalance+amount;
+		double currentBalance=userEntity.getSmartCard().getBalance();
+		double newBalance=currentBalance+amount;
 		userEntity.getSmartCard().setBalance(newBalance);
 		UserEntity resp=userRepo.save(userEntity);
 		String msg="User "+resp.getFirstName()+ " with user id "+userid+" successfully recharged with "+amount+".Current available balance:"+ resp.getSmartCard().getBalance();
@@ -93,13 +93,13 @@ public class SmartCardController {
 	@RequestMapping(value = "user/{userid}/deduct", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseDTO> deductFareFromCard(@PathVariable Integer userid,@RequestBody FareDTO fareDTO) {
 		UserEntity userEntity=userRepo.findById(userid).get();
-		long currentBalance=userEntity.getSmartCard().getBalance();
+		double currentBalance=userEntity.getSmartCard().getBalance();
 		String email=userEntity.getEmailId();
 		String name=userEntity.getFirstName();
 		String subject="Easyfare Invoice";
 		String message;
-		long fare=fareDTO.getFare();
-		long newBalance=currentBalance-fare;
+		double fare=fareDTO.getFare();
+		double newBalance=currentBalance-fare;
 		if(newBalance>=-1) {
 			userEntity.getSmartCard().setBalance(newBalance);
 			UserEntity resp=userRepo.save(userEntity);

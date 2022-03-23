@@ -10,6 +10,6 @@ public class PassengerDTO {
 	private String startpoint;
 	private String routeNumber;
 	private String busNumber;
-	private long availableBalance;
+	private double availableBalance;
 		
 }

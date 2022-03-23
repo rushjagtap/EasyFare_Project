@@ -11,5 +11,5 @@ public class FareDTO {
 
 	private String source;
 	private String destination;
-	private long fare;
+	private double fare;
 }

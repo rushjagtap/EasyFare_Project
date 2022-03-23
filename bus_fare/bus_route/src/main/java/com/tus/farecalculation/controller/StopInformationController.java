@@ -87,7 +87,9 @@ public class StopInformationController {
         Double price = stopInformation.getPrice();
         if(fareMode.equals("distance_based")){
            Double distance= calculateDistance(stopInformation);
+           System.out.println("distance is:"+distance);
             price=basePrice*distance;
+            System.out.println("Price is:"+price);
         }
         else if(fareMode.equals("stop_based")){
             //priceCalculate
@@ -110,7 +112,8 @@ public class StopInformationController {
         saveHistory(fleetInformation,price);
         FareDTO fareDTO = new FareDTO();
         fareDTO.setDestination(fleetInformation.getDropringName());
-        fareDTO.setFare(price.longValue());
+        fareDTO.setFare(price);
+        System.out.println("Fare is :"+fareDTO.getFare());
         fareDTO.setSource(fleetInformation.getBoardingName());
         String messgae = deductService.deductFareFromCard(fleetInformation.getUserId(), fareDTO).getBody().getMessgae();
         return ResponseEntity.ok(messgae);
@@ -163,7 +166,7 @@ public class StopInformationController {
             dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
         }
         RestTemplate restTemplate= new RestTemplate();
-        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,numOfPass);
+        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,3);
         String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
         return restObj;
     }
