@@ -54,17 +54,8 @@ public class RouteInformationController   {
 
 
     @RequestMapping(value = "/locations",method = RequestMethod.POST)
-    public String getDistance(@RequestBody StopPointsDTO locations){
-        String message = "";
-        try{
-            message= locationService.getDistance(locations).getBody().getMessgae();
-        }catch(FeignException e){
-            String distance = e.getMessage().substring(137, e.getMessage().length() - 3);
-            return  distance ;
-        }
-
-        System.out.println("-----------------------------------------");
-        return message;
+    public Double getDistance(@RequestBody StopPointsDTO locations){
+        Double distance = locationService.getDistance(locations);
+        return distance;
     }
-
 }

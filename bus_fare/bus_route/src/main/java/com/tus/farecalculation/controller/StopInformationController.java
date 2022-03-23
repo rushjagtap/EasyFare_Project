@@ -11,6 +11,7 @@ import com.tus.farecalculation.mapper.StopInformationRepository;
 import com.tus.farecalculation.vo.FleetInformation;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -40,7 +41,12 @@ public class StopInformationController {
     private Locations locationService;
 
 
+    @Value("${fare_mode}")
+    private String  fareMode;
 
+
+    @Value("${base_price}")
+    private double  basePrice;
 
 
     @GetMapping("/getAll")
@@ -59,7 +65,8 @@ public class StopInformationController {
 
     @PostMapping(value="/ReceiveInAndCalculatePriceAndSaveHistory", produces = {"application/json;charset=UTF-8"})
     public ResponseEntity ReceiveInAndCalculatePriceAndSaveHistory(@RequestBody FleetInformation fleetInformation) throws Exception {
-       List<RouteInformation> routeInformationList=routeInformationRepository.findAll(fleetInformation.getRouteNum(),fleetInformation.getBusNum());
+
+        List<RouteInformation> routeInformationList=routeInformationRepository.findAll(fleetInformation.getRouteNum(),fleetInformation.getBusNum());
         if(routeInformationList.isEmpty()){
             throw  new Exception("no store route Information");
         }
@@ -71,13 +78,74 @@ public class StopInformationController {
             throw  new Exception("no store stop Infomation");
         }
         StopInformation stopInformation = stopInformationList.get(0);
-        List<StopInformation> startformationList= stopInformationRepository.findAll(routeInformationId);
         if(stopInformationList.isEmpty()){
             throw  new Exception("no start location ");
         }
-
         //calculate peaktime
-       String routeId = fleetInformation.getRouteNum();
+        String ifPeakTime = calculatePeakTime(fleetInformation, routeInformationId);
+
+        Double price = stopInformation.getPrice();
+        if(fareMode.equals("distance_based")){
+           Double distance= calculateDistance(stopInformation);
+            price=basePrice*distance;
+        }
+        else if(fareMode.equals("stop_based")){
+            //priceCalculate
+            Integer stopInformationId = stopInformation.getId();
+            Double beforePrice=stopInformationRepository.findAll(stopInformationId,stopInformation.getRouteInformationId());
+            if(beforePrice!=null){
+                price=price+beforePrice;
+            }
+        }
+        //if peak time price *1.1
+        if(!ifPeakTime.isEmpty()&&ifPeakTime.equals("1")){
+            price=price*1.1;
+            BigDecimal   b   =   new   BigDecimal(price);
+            price  =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
+        // save history
+        saveHistory(fleetInformation,price);
+        FareDTO fareDTO = new FareDTO();
+        fareDTO.setDestination(fleetInformation.getDropringName());
+        fareDTO.setFare(price.longValue());
+        fareDTO.setSource(fleetInformation.getBoardingName());
+        String messgae = deductService.deductFareFromCard(fleetInformation.getUserId(), fareDTO).getBody().getMessgae();
+        return ResponseEntity.ok(messgae);
+    }
+
+    private void saveHistory(FleetInformation fleetInformation, Double price) {
+        RouteHistory routeHistory = new RouteHistory();
+        routeHistory.setUserId(fleetInformation.getUserId());
+        routeHistory.setBusNum(fleetInformation.getBusNum());
+        routeHistory.setDriverId(fleetInformation.getDriverId());
+        routeHistory.setTripStartTime(fleetInformation.getStartTime());
+        routeHistory.setTripEndTime(fleetInformation.getEndTime());
+        routeHistory.setRouteNumber(fleetInformation.getRouteNum());
+        routeHistory.setBoardingPoint(fleetInformation.getBoardingName());
+        routeHistory.setDropOffPoint(fleetInformation.getDropringName());
+        routeHistory.setCost(price);
+        routeHistory.setCreateTime(new Date());
+        routeHistoryRepository.save(routeHistory);
+    }
+
+    private Double calculateDistance(StopInformation stopInformation) {
+        //calculate the distance
+        List<StopInformation> stopInformationList2 = stopInformationRepository.findAll(stopInformation.getRouteInformationId());
+        StopPointsDTO stopPointsDTO = new StopPointsDTO();
+        ArrayList<DataPointsDTO> dataPointsDTOS = new ArrayList<>();
+        for(StopInformation temp:stopInformationList2){
+            DataPointsDTO dataPointsDTO = new DataPointsDTO();
+            dataPointsDTO.setLatitude(temp.getLatitude());
+            dataPointsDTO.setLongitude(temp.getLongitude());
+            dataPointsDTOS.add(dataPointsDTO);
+        }
+
+        stopPointsDTO.setPointsList(dataPointsDTOS);
+        Double  distance= locationService.getDistance(stopPointsDTO);
+        return distance;
+    }
+
+    private String calculatePeakTime(FleetInformation fleetInformation,Integer routeInformationId) {
         Date startTime = fleetInformation.getStartTime();
         int year = startTime.getYear();
         int month = startTime.getMonth();
@@ -92,64 +160,9 @@ public class StopInformationController {
             dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
         }
         RestTemplate restTemplate= new RestTemplate();
-        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,2);
+        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,numOfPass);
         String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
-        System.out.println("restObj "+restObj);
-        //calculate the distance
-        StopInformation startInfomation = startformationList.get(0);
-        StopPointsDTO stopPointsDTO = new StopPointsDTO();
-        ArrayList<DataPointsDTO> dataPointsDTOS = new ArrayList<>();
-        DataPointsDTO dataPointsDTO = new DataPointsDTO();
-        dataPointsDTO.setLongitude(stopInformation.getLongitude());
-        dataPointsDTO.setLatitude(stopInformation.getLatitude());
-        DataPointsDTO dataPointsDTO2 = new DataPointsDTO();
-        dataPointsDTO2.setLongitude(startInfomation.getLongitude());
-        dataPointsDTO2.setLatitude(startInfomation.getLatitude());
-        dataPointsDTOS.add(dataPointsDTO);
-        dataPointsDTOS.add(dataPointsDTO2);
-        stopPointsDTO.setPointsList(dataPointsDTOS);
-
-        String distance = "";
-        try{
-            distance= locationService.getDistance(stopPointsDTO).getBody().getMessgae();
-            System.out.println(distance);
-        }catch(FeignException e){
-            // distance = e.getMessage().substring(137, e.getMessage().length() - 3);
-        }
-        System.out.println("distance+++++++++++++++++"+distance);
-        BigDecimal price = stopInformation.getPrice();
-        //priceCalculate
-        Integer stopInformationId = stopInformation.getId();
-        BigDecimal beforePrice=stopInformationRepository.findAll(stopInformationId,stopInformation.getId());
-        if(beforePrice!=null){
-            price=price.add(beforePrice);
-        }
-        if(!restObj.isEmpty()&&restObj.equals("1")){
-            price=price.multiply(new BigDecimal(1.1));
-        }
-        RouteHistory routeHistory = new RouteHistory();
-        routeHistory.setUserId(fleetInformation.getUserId());
-        routeHistory.setBusNum(fleetInformation.getBusNum());
-        routeHistory.setDriverId(fleetInformation.getDriverId());
-        routeHistory.setTripStartTime(fleetInformation.getStartTime());
-        routeHistory.setTripEndTime(fleetInformation.getEndTime());
-        routeHistory.setRouteNumber(fleetInformation.getRouteNum());
-        routeHistory.setBoardingPoint(fleetInformation.getBoardingName());
-        routeHistory.setDropOffPoint(fleetInformation.getDropringName());
-        routeHistory.setCost(price);
-        routeHistory.setCreateTime(new Date());
-        routeHistoryRepository.save(routeHistory);
-        HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("source",fleetInformation.getBoardingName());
-        resultMap.put("destination",fleetInformation.getDropringName());
-        resultMap.put("userId",fleetInformation.getUserId());
-        resultMap.put("fare",price);
-        FareDTO fareDTO = new FareDTO();
-        fareDTO.setDestination(fleetInformation.getDropringName());
-        fareDTO.setFare(price.longValue());
-        fareDTO.setSource(fleetInformation.getBoardingName());
-        String messgae = deductService.deductFareFromCard(fleetInformation.getUserId(), fareDTO).getBody().getMessgae();
-        return ResponseEntity.ok(messgae);
+        return restObj;
     }
 
     public static void main(String[] args) {

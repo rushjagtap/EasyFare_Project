@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface Locations {
 
     @RequestMapping(value = "api/v1/locations",method = RequestMethod.POST)
-    public ResponseEntity<ResponseDTO> getDistance(@RequestBody StopPointsDTO locations);
+    public Double getDistance(@RequestBody StopPointsDTO locations);
 }
