@@ -45,8 +45,14 @@ public class StopInformationController {
     private String  fareMode;
 
 
-    @Value("${base_price}")
+    @Value("${price_per_km}")
     private double  basePrice;
+
+    @Value("${peak_hour_percentage}")
+    private double peakHourPercentage;
+
+    @Value("${peak_time_url}")
+    private String pickTimeUrl;
 
 
     @GetMapping("/getAll")
@@ -101,7 +107,7 @@ public class StopInformationController {
         }
         //if peak time price *1.1
         if(!ifPeakTime.isEmpty()&&ifPeakTime.equals("1")){
-            price=price*1.1;
+            price=price*peakHourPercentage;
             BigDecimal   b   =   new   BigDecimal(price);
             price  =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
         }
@@ -167,7 +173,7 @@ public class StopInformationController {
         }
         RestTemplate restTemplate= new RestTemplate();
         PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,fleetInformation.getNumOfPass());
-        String restObj=restTemplate.postForObject("http://3.82.36.94:5000/predictpeaktime", peakTime, String.class);
+        String restObj=restTemplate.postForObject(pickTimeUrl, peakTime, String.class);
         return restObj;
     }
 
