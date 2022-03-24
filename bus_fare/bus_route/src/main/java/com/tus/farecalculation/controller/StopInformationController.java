@@ -94,7 +94,7 @@ public class StopInformationController {
         else if(fareMode.equals("stop_based")){
             //priceCalculate
             Integer stopInformationId = stopInformation.getId();
-            Double beforePrice=stopInformationRepository.findAll(stopInformationId,stopInformation.getRouteInformationId());
+            Double beforePrice=stopInformationRepository.findAll(stopInformationId,stopInformation.getRouteInformationId(),fleetInformation.getBoardingName());
             if(beforePrice!=null){
                 price=price+beforePrice;
             }
@@ -166,8 +166,8 @@ public class StopInformationController {
             dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
         }
         RestTemplate restTemplate= new RestTemplate();
-        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,3);
-        String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
+        PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,fleetInformation.getNumOfPass());
+        String restObj=restTemplate.postForObject("http://3.82.36.94:5000/predictpeaktime", peakTime, String.class);
         return restObj;
     }
 
