@@ -167,7 +167,7 @@ public class StopInformationController {
         }
         RestTemplate restTemplate= new RestTemplate();
         PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,3);
-        String restObj=restTemplate.postForObject("http://54.227.57.147:5000/predictpeaktime", peakTime, String.class);
+        String restObj=restTemplate.postForObject("http://3.82.36.94:5000/predictpeaktime", peakTime, String.class);
         return restObj;
     }
 
