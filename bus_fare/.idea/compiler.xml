@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bus_common" />
         <module name="bus_fleet_management" />
         <module name="distancecalculator" />
+        <module name="bus_eruka" />
         <module name="bus_route" />
         <module name="bus_distance_calculator" />
         <module name="bus_email_client" />
-        <module name="bus_eruka" />
+        <module name="bus_common" />
         <module name="bus_user_management" />
       </profile>
     </annotationProcessing>

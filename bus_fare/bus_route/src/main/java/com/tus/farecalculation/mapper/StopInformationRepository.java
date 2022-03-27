@@ -11,8 +11,8 @@ public interface StopInformationRepository extends JpaRepository<StopInformation
     @Query("select c from stop_information c where c.routeInformationId=?1 and c.stopName=?2")
     List<StopInformation> findAll(Integer routeInformationId, String dropringName);
 
-    @Query("select sum(c.price) from stop_information c where c.id<?1  and  c.routeInformationId=?2")
-    Double findAll(Integer stopInformationId,Integer routeInformationId);
+    @Query("select sum(c.price) from stop_information c where c.id<?1  and  c.routeInformationId=?2 and c.stopName<>?3")
+    Double findAll(Integer stopInformationId,Integer routeInformationId,String stopName);
     @Query("select c from stop_information c where c.routeInformationId=?1 ")
     List<StopInformation> findAll(Integer routeInformationId);
 }
