@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56b79313-8c1d-4d8d-8224-0e8107b3cfe3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/bus_route/src/main/java/com/tus/farecalculation/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bus_route/src/main/java/com/tus/farecalculation/controller/StopInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bus_route/src/main/java/com/tus/farecalculation/controller/StopInformationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bus_route/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bus_route/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bus_route/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bus_route/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +90,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tus.farecalculation" />
       <recent name="com.tus.farecalculation.entry" />
       <recent name="com.mall.controller" />
       <recent name="com.mall.mapper" />
       <recent name="com.bus" />
-      <recent name="com.mall" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\busFare\EasyFare_Project\bus_fare\bus_route\src\main\java\com\mall\controller" />
@@ -201,6 +202,7 @@
       <workItem from="1647866784572" duration="37782000" />
       <workItem from="1647959305212" duration="13392000" />
       <workItem from="1648042191668" duration="10789000" />
+      <workItem from="1648340069377" duration="1658000" />
     </task>
     <servers />
   </component>
@@ -292,10 +294,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1645237030542" />
-    <state x="647" y="275" width="694" height="490" key="find.popup" timestamp="1647991054948">
+    <state x="647" y="275" width="694" height="490" key="find.popup" timestamp="1648341364320">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="647" y="275" width="694" height="490" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1647991054948" />
+    <state x="647" y="275" width="694" height="490" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1648341364320" />
     <state x="334" y="224" key="new project wizard" timestamp="1645235730028">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
