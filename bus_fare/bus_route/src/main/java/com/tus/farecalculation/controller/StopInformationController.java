@@ -169,7 +169,7 @@ public class StopInformationController {
 
     private String calculatePeakTime(FleetInformation fleetInformation,Integer routeInformationId) {
         Date startTime = fleetInformation.getStartTime();
-        int year = startTime.getYear()+1990;
+        int year = startTime.getYear()+1900;
         int month = startTime.getMonth();
         int hours = startTime.getHours();
         Integer numOfPass = fleetInformation.getNumOfPass();
