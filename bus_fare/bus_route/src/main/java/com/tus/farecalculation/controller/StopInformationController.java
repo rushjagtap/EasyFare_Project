@@ -10,6 +10,8 @@ import com.tus.farecalculation.mapper.RouteInformationRepository;
 import com.tus.farecalculation.mapper.StopInformationRepository;
 import com.tus.farecalculation.vo.FleetInformation;
 import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
 @RequestMapping("/stopInformation")
+@Slf4j
 public class StopInformationController {
 
     @Autowired
@@ -122,6 +126,9 @@ public class StopInformationController {
         System.out.println("Fare is :"+fareDTO.getFare());
         fareDTO.setSource(fleetInformation.getBoardingName());
         String messgae = deductService.deductFareFromCard(fleetInformation.getUserId(), fareDTO).getBody().getMessgae();
+        if(!ifPeakTime.isEmpty()&&ifPeakTime.equals("1")){
+            log.info(messgae=" -----------------------------------a peak time " +messgae);
+        }
         return ResponseEntity.ok(messgae);
     }
 
@@ -138,7 +145,7 @@ public class StopInformationController {
         routeHistory.setCost(price);
         routeHistory.setCreateTime(new Date());
         if(!ifPeaktime.isEmpty()){
-            routeHistory.setIfPeakHour(Integer.valueOf(ifPeaktime));
+            routeHistory.setIfPeakTime(Integer.valueOf(ifPeaktime));
         }
         routeHistoryRepository.save(routeHistory);
     }
@@ -162,7 +169,7 @@ public class StopInformationController {
 
     private String calculatePeakTime(FleetInformation fleetInformation,Integer routeInformationId) {
         Date startTime = fleetInformation.getStartTime();
-        int year = startTime.getYear();
+        int year = startTime.getYear()+1990;
         int month = startTime.getMonth();
         int hours = startTime.getHours();
         Integer numOfPass = fleetInformation.getNumOfPass();
@@ -177,6 +184,7 @@ public class StopInformationController {
         RestTemplate restTemplate= new RestTemplate();
         PeakTime peakTime = new PeakTime(routeInformationId,month,year,hours,dayForWeek,fleetInformation.getNumOfPass());
         String restObj=restTemplate.postForObject(pickTimeUrl, peakTime, String.class);
+        log.info("-----------------"+peakTime+"-------"+restObj);
         return restObj;
     }
 
