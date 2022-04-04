@@ -45,4 +45,7 @@ public class RouteHistory {
 
     private Integer driverId;
 
+    @Column(name = "if_peak_time")
+    private Integer ifPeakTime;
+
 }
