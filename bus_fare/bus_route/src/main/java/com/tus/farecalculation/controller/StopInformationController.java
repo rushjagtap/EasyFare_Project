@@ -115,7 +115,7 @@ public class StopInformationController {
             price=0.0;
         }
         // save history
-        saveHistory(fleetInformation,price);
+        saveHistory(fleetInformation,price,ifPeakTime);
         FareDTO fareDTO = new FareDTO();
         fareDTO.setDestination(fleetInformation.getDropringName());
         fareDTO.setFare(price);
@@ -125,7 +125,7 @@ public class StopInformationController {
         return ResponseEntity.ok(messgae);
     }
 
-    private void saveHistory(FleetInformation fleetInformation, Double price) {
+    private void saveHistory(FleetInformation fleetInformation, Double price,String ifPeaktime) {
         RouteHistory routeHistory = new RouteHistory();
         routeHistory.setUserId(fleetInformation.getUserId());
         routeHistory.setBusNum(fleetInformation.getBusNum());
@@ -137,6 +137,9 @@ public class StopInformationController {
         routeHistory.setDropOffPoint(fleetInformation.getDropringName());
         routeHistory.setCost(price);
         routeHistory.setCreateTime(new Date());
+        if(!ifPeaktime.isEmpty()){
+            routeHistory.setIfPeakHour(Integer.valueOf(ifPeaktime));
+        }
         routeHistoryRepository.save(routeHistory);
     }
 
