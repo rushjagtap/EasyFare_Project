@@ -76,6 +76,7 @@ public class StopInformationController {
     @PostMapping(value="/ReceiveInAndCalculatePriceAndSaveHistory", produces = {"application/json;charset=UTF-8"})
     public ResponseEntity ReceiveInAndCalculatePriceAndSaveHistory(@RequestBody FleetInformation fleetInformation) throws Exception {
 
+    	System.out.println("Fleet Info :"+fleetInformation);
         List<RouteInformation> routeInformationList=routeInformationRepository.findAll(fleetInformation.getRouteNum(),fleetInformation.getBusNum());
         if(routeInformationList.isEmpty()){
             throw  new Exception("no store route Information");

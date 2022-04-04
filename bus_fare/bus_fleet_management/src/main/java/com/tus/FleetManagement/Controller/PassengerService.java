@@ -1,6 +1,8 @@
 package com.tus.FleetManagement.Controller;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
 
@@ -53,16 +55,22 @@ public class PassengerService {
 			{
 				System.out.println("user exists");
 				passRepo.deleteById(userid);
+				
 			
-			
-			
-				FleetInformationDTO passObj= new FleetInformationDTO(userid, passenger.getRouteNumber(), passenger.getBusNumber(),currentBus.get().getDriverId() ,currentPassenger.get().getStart_point(), passenger.getStartpoint(), new Date() ,new Date(),1);
+				LocalDateTime startTime= currentPassenger.get().getStartTime();
+				LocalDateTime localDateTime= LocalDateTime.parse(startTime.toString());
+				Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+				Date startTimeDate = Date.from(instant);
+				System.out.println("Start time is "+startTimeDate);
+				Integer passCount= passRepo.findByRouteNumberAndBusNumber(passenger.getRouteNumber(),passenger.getBusNumber());
+				System.out.println("Passenger count "+passCount);
+				FleetInformationDTO passObj= new FleetInformationDTO(userid, passenger.getRouteNumber(), passenger.getBusNumber(),currentBus.get().getDriverId() ,currentPassenger.get().getStart_point(), passenger.getStartpoint(), startTimeDate,new Date(),passCount);
 				System.out.println("calling fare calculation");
 				System.out.println("calling fare calculation" + locationUrl + " data:  "+passObj);
 				String restObj=restTemplate.postForObject(locationUrl, passObj, String.class);
 				System.out.println(restObj+" Call successfull");
 				System.out.println(restObj.substring(restObj.indexOf("of"),restObj.indexOf("done")));
-				return "User dropped the bus at "+passenger.getStartpoint() + "\n " +restObj ;
+				return "User dropped the bus at "+passenger.getStartpoint() + "." +restObj ;
 				
 			}
 			else 
