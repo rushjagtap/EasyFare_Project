@@ -4,12 +4,17 @@ import com.tus.farecalculation.entry.BusRoute;
 import com.tus.farecalculation.entry.RouteHistory;
 import com.tus.farecalculation.mapper.RouteHistoryRepository;
 import com.tus.farecalculation.mapper.RouteRepository;
+import io.swagger.annotations.Example;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,5 +48,14 @@ public class RouteHistoryController {
         return "delete success";
     }
 
+    @RequestMapping(value="/findByUserIdAndStartTime")
+    public ResponseEntity findByUserIdAndStartTime(@RequestParam Integer userId, @RequestParam String tripStartTime) throws ParseException {
 
+        Date parse = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(tripStartTime);
+        List<RouteHistory> all = routeHistoryRepository.findAll(userId, parse);
+        if(!all.isEmpty()){
+            return ResponseEntity.ok(all.get(0));
+        }
+        return null;
+    }
 }
